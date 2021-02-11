@@ -46,7 +46,7 @@ app.get('/getToken', function (req, res) {
     let broker = req.query['broker'];
     let tokenData
     let token = [];
-    switch(broker){
+    switch (broker) {
         case "angel":
             tokenData = angelSymbols.filter((i) => {
                 if (Array.isArray(req.query['symbol']) && req.query['symbol'].length > 0 && req.query['symbol'].indexOf(i.symbol) >= 0) {
@@ -81,7 +81,7 @@ app.get('/getToken', function (req, res) {
                 token = null
             }
             break;
-        default :
+        default:
             tokenData = angelSymbols.filter((i) => {
                 if (Array.isArray(req.query['symbol']) && req.query['symbol'].length > 0 && req.query['symbol'].indexOf(i.symbol) >= 0) {
                     return i
@@ -98,7 +98,7 @@ app.get('/getToken', function (req, res) {
                 token = null
             }
     }
-return res.json({ "token": token });
+    return res.json({ "token": token });
 })
 
 http.listen(5080, function () {
