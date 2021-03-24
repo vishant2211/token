@@ -44,6 +44,7 @@ function getExchangeName(exch_seg) {
 }
 app.get('/getToken', function (req, res) {
     let broker = req.query['broker'];
+    let tradingsymbol = req.query['tradingsymbol'];
     let tokenData
     let token = [];
     switch (broker) {
@@ -74,9 +75,12 @@ app.get('/getToken', function (req, res) {
             })
             if (tokenData && Array.isArray(tokenData)) {
                 tokenData.forEach((j) => {
-                    token.push(getExchangeName(j.exch_seg) + '|' + j.token)
+                    if (tradingsymbol) {
+                        token.push({ 'tradingsymbol': j.tradingsymbol, 'instrument_token': parseInt(j.instrument_token) })
+                    } else {
+                        token.push(parseInt(j.instrument_token))
+                    }
                 })
-                token = token.join('&')
             } else {
                 token = null
             }
