@@ -1,12 +1,12 @@
 # Token
 
-#Configure
-node ./instruments/index.js // For Unix based OS
+#Configure  
+node ./instruments/index.js // For Unix based OS  
 node .\instruments\index.js // For Windows
 
-#Run
+#Run  
 node index.js
 
-#Usage
-http://localhost:5080/getToken?symbol=BANKNIFTY&symbol=AXISBANK&broker=angel
+#Usage  
+http://localhost:5080/getToken?symbol=BANKNIFTY&symbol=AXISBANK&broker=angel  
 http://localhost:5080/getToken?symbol=BANKNIFTY&symbol=AXISBANK&broker=zerodha
