@@ -42,7 +42,7 @@ function getExchangeName(exch_seg) {
     }
     return exch;
 }
-app.get('/getToken', function (req, res) {
+app.post('/getToken', function (req, res) {
     let broker = req.query['broker'];
     let tradingsymbol = req.query['tradingsymbol'];
     let tokenData
@@ -50,9 +50,9 @@ app.get('/getToken', function (req, res) {
     switch (broker) {
         case "angel":
             tokenData = angelSymbols.filter((i) => {
-                if (Array.isArray(req.query['symbol']) && req.query['symbol'].length > 0 && req.query['symbol'].indexOf(i.symbol) >= 0) {
+                if (Array.isArray(req.body['symbol']) && req.body['symbol'].length > 0 && req.body['symbol'].indexOf(i.symbol) >= 0) {
                     return i
-                } else if (i.symbol == req.query['symbol']) {
+                } else if (i.symbol == req.body['symbol']) {
                     return i
                 }
             })
@@ -67,9 +67,9 @@ app.get('/getToken', function (req, res) {
             break;
         case "zerodha":
             tokenData = zerodhaSymbols.filter((i) => {
-                if ((i["exchange"] == "NFO" || i["exchange"] == "NSE") && Array.isArray(req.query['symbol']) && req.query['symbol'].length > 0 && req.query['symbol'].indexOf(i.tradingsymbol) >= 0) {
+                if ((i["exchange"] == "NFO" || i["exchange"] == "NSE") && Array.isArray(req.body['symbol']) && req.body['symbol'].length > 0 && req.body['symbol'].indexOf(i.tradingsymbol) >= 0) {
                     return i
-                } else if ((i["exchange"] == "NFO" || i["exchange"] == "NSE") && i.tradingsymbol == req.query['symbol']) {
+                } else if ((i["exchange"] == "NFO" || i["exchange"] == "NSE") && i.tradingsymbol == req.body['symbol']) {
                     return i
                 }
             })
@@ -87,9 +87,9 @@ app.get('/getToken', function (req, res) {
             break;
         default:
             tokenData = angelSymbols.filter((i) => {
-                if (Array.isArray(req.query['symbol']) && req.query['symbol'].length > 0 && req.query['symbol'].indexOf(i.symbol) >= 0) {
+                if (Array.isArray(req.body['symbol']) && req.body['symbol'].length > 0 && req.body['symbol'].indexOf(i.symbol) >= 0) {
                     return i
-                } else if (i.symbol == req.query['symbol']) {
+                } else if (i.symbol == req.body['symbol']) {
                     return i
                 }
             })
@@ -110,3 +110,10 @@ http.listen(5080, function () {
     console.log('Initialization Done. Gates open on %s port.', 5080);
 });
 http.timeout = 0;
+// let counter = 0
+// angelSymbols.filter((i) => {
+//     if (i.exch_seg == 'NSE' && i.lotsize == '1' && i.tick_size =="5.000000" ){//&& i.symbol.indexOf('-EQ') != -1) {
+//         counter++
+//         require('fs').appendFileSync('test.txt',`${i.symbol}\n`)
+//     } 
+// })
